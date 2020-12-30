@@ -1,0 +1,48 @@
+{
+"mysql":[{
+	"host":"localhost",
+	"user":"logger",
+	"password":"password",
+	"database":"weatherstation"
+	}],
+"sensors":[{
+	"sensor1":"TempandHumidity",
+	"sensor2":"Pressure",
+	"sensor3":"WindDirection",
+	"sensor4":"WindSpeed",
+	"sensor5":"Rainfall"
+	}],
+"sensorgpios":[{
+	"gpiosensor1":"26",
+	"gpiosensor4":"24",
+	"gpiosensor5":"22"
+	}],
+"relaygpios":[{
+	"gpiorelay1":"4"
+	}],
+"mailinfo":[{
+	"senderaddress":"",
+	"receiveraddress":"",
+	"username":"",
+	"password":"",
+	"subjectmessage":"Info from weatherstation",
+	"subjectwarning":"Warning from weatherstation"
+	}],
+"wunderground":[{
+	"stationid":"",
+	"stationpass":""
+	}],
+"sqlBackupDump":[{
+	"backupDumpEnabled":"y",
+	"backupHour":"23"
+	}],
+"connectionCheck":[{
+	"connectionCheckEnabled":"y",
+	"connectionCheckDay":"5",
+	"connectionCheckHour":"23"
+	}],
+"sensortype":"2302",
+"sensoramount":"5",
+"daystokeep":"30",
+"sqlbackuppath":"/home/pi/weathersensors/Backups/"
+}
