@@ -11,8 +11,8 @@ import subprocess
 import MySQLdb
 import smtplib
 import Adafruit_DHT
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import RPi.GPIO as GPIO
 import time
 import requests
@@ -44,7 +44,7 @@ def getAverageWindSpeed():
     AverageWind=0
     try:
         sqlCommand = "SELECT AVG(windspeedmph) FROM windspeeddata WHERE dateandtime BETWEEN '%s' AND '%s'" % (delta,date)
-	AverageWind = databaseHelper(sqlCommand,"Select")
+        AverageWind = databaseHelper(sqlCommand,"Select")
         
     except:
         pass
@@ -80,7 +80,7 @@ def emailWarning(msg, msgType):
     password = configurations["mailinfo"][0]["password"]
     subj = configurations["mailinfo"][0]["subjectwarning"]
         
-    if msgType is 'Info':
+    if msgType == 'Info':
         subj = configurations["mailinfo"][0]["subjectmessage"]
     
     # Message to be sended with subject field
@@ -121,10 +121,10 @@ def databaseHelper(sqlCommand,sqloperation):
             try:
                 cursor.execute(sqlCommand)
                 db.commit()
-                print sqlCommand
+                print (sqlCommand)
             except:
                 db.rollback()
-		warnmsg = 'Logger\nDatabase insert failed.\nCommand:%s\n' % (sqlCommand)
+                warnmsg = 'Logger\nDatabase insert failed.\nCommand:%s\n' % (sqlCommand)
                 emailWarning(warnmsg, "")
     elif sqloperation == "Cleanup":
         # SQL to purge all records older than configuration limit

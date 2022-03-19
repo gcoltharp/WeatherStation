@@ -1,0 +1,459 @@
+/**
+ * Version: 0.2
+ * Author: Otto Salminen - 2020
+ * Github: https://github.com/rotvalli/css-gauge
+ * License: MIT
+ */
+.gauge
+	{
+position:relative;
+background: #f2f6f5;
+background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+border:.05em solid red;
+border-radius:50%;
+width:170px;
+height:170px;
+font-weight:700;
+font-size:34px;
+	}
+.gauge .ticks
+	{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+	}
+.gauge .ticks .min
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(-45deg);
+	}
+.gauge .ticks .mid
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(90deg);
+	}
+.gauge .ticks .max
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(225deg);
+	}
+.gauge .ticks .tithe
+	{
+transform:rotate(calc(27deg * var(--gauge-tithe-tick) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 10%,#000 10%,#000 15%,rgba(0,0,0,0) 15%);
+	}
+.gauge .tick-circle
+	{
+position:absolute;
+top:15%;
+left:15%;
+width:calc(70% - .1em);
+height:calc(70% - .1em);
+border-left:.1em solid;
+border-top:.1em solid;
+border-right:.1em solid;
+border-bottom:.1em solid transparent;
+border-radius:50%;
+	}
+.gauge .needle
+	{
+transform:rotate(calc(270deg * calc(var(--gauge-value,0deg)/ 100) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:49%;
+width:100%;
+height:4%;
+margin-bottom:-4%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 24%,#000 24%,#000 30%,rgba(0,0,0,0) 50%);
+	}
+.gauge .needle .needle-head
+	{
+position:relative;
+top:15%;
+left:22.5%;
+width:2.7%;
+height:70%;
+background-color:#000;
+transform:rotate(-45deg);
+	}
+.gauge .labels
+	{
+position:absolute;
+width:100%;
+height:100%;
+	}
+.gauge .labels .value-label
+	{
+font-family: "SevenSegment";
+font-size: 28px;
+font-weight: bold;
+color: #ff3300;
+position:relative;
+top:75%;
+left:32%;
+width:10%;
+height:0;
+
+	}
+.gauge .labels .value-label::after
+	{
+#counter-reset:gauge-value var(--gauge-display-value);
+#content:counter(gauge-value);
+text-align:justify;
+float:right;
+width:3em;
+	}
+
+.gauge .labels h4
+	{
+top:80%;
+position: relative;
+text-align:center;
+font-size: 22px;
+font-size: 20px;
+padding: 10px;
+
+	}
+
+.gauge2
+	{
+position:relative;
+#background:var(--gauge-bg);
+background: #f2f6f5;
+background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+border:.05em solid red;
+border-radius:50%;
+width:170px;
+height:170px;
+font-weight:700;
+font-size:34px;
+	}
+.gauge2 .ticks2
+	{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+	}
+.gauge2 .ticks2 .min
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(-45deg);
+	}
+.gauge2 .ticks2 .mid
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(90deg);
+	}
+.gauge2 .ticks2 .max
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(225deg);
+	}
+.gauge2 .ticks2 .tithe
+	{
+transform:rotate(calc(27deg * var(--gauge2-tithe-tick) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 10%,#000 10%,#000 15%,rgba(0,0,0,0) 15%);
+	}
+.gauge2 .tick-circle2
+	{
+position:absolute;
+top:15%;
+left:15%;
+width:calc(70% - .1em);
+height:calc(70% - .1em);
+border-left:.1em solid;
+border-top:.1em solid;
+border-right:.1em solid;
+border-bottom:.1em solid transparent;
+border-radius:50%;
+	}
+.gauge2 .needle2
+	{
+transform:rotate(calc(270deg * calc(var(--gauge2-value,0deg)/ 100) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:49%;
+width:100%;
+height:4%;
+margin-bottom:-4%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 24%,#000 24%,#000 30%,rgba(0,0,0,0) 50%);
+	}
+.gauge2 .needle2 .needle-head
+	{
+position:relative;
+top:15%;
+left:22.5%;
+width:2.7%;
+height:70%;
+background-color:#000;
+transform:rotate(-45deg);
+	}
+.gauge2 .labels2
+	{
+position:absolute;
+width:100%;
+height:100%;
+	}
+.gauge2 .labels2 .value-label
+	{
+font-family: "SevenSegment";
+font-size: 28px;
+font-weight: bold;
+color: #ff3300;
+position:relative;
+top:75%;
+left:33%;
+width:10%;
+height:0;
+
+	}
+.gauge2 .labels2 .value-label::after
+	{
+text-align:justify;
+float:right;
+width:3em;
+	}
+
+.gauge2 .labels2 h4
+	{
+top:80%;
+position: relative;
+text-align:center;
+font-size: 22px;
+font-size: 20px;
+padding: 10px;
+
+	}
+.gauge3
+	{
+position:relative;
+#background:var(--gauge-bg);
+background: #f2f6f5;
+background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+border:.05em solid red;
+border-radius:50%;
+width:170px;
+height:170px;
+font-weight:700;
+font-size:34px;
+	}
+.gauge3 .ticks3
+	{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+	}
+.gauge3 .ticks3 .min
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(-45deg);
+	}
+.gauge3 .ticks3 .mid
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(90deg);
+	}
+.gauge3 .ticks3 .max
+	{
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 4%,#000 4%,#000 15%,rgba(0,0,0,0) 15%);
+transform:rotate(225deg);
+	}
+.gauge3 .ticks3 .tithe
+	{
+transform:rotate(calc(27deg * var(--gauge3-tithe-tick) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:50%;
+width:100%;
+height:1%;
+margin-bottom:-1%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 10%,#000 10%,#000 15%,rgba(0,0,0,0) 15%);
+	}
+.gauge3 .tick-circle3
+	{
+position:absolute;
+top:15%;
+left:15%;
+width:calc(70% - .1em);
+height:calc(70% - .1em);
+border-left:.1em solid;
+border-top:.1em solid;
+border-right:.1em solid;
+border-bottom:.1em solid transparent;
+border-radius:50%;
+	}
+.gauge3 .needle3
+	{
+transform:rotate(calc(270deg * calc(var(--gauge3-value,0deg)/ 100) - 45deg));
+background:#000;
+position:relative;
+left:0;
+top:49%;
+width:100%;
+height:4%;
+margin-bottom:-4%;
+background:linear-gradient(90deg,rgba(2,0,36,0) 0,rgba(0,0,0,0) 24%,#000 24%,#000 30%,rgba(0,0,0,0) 50%);
+	}
+.gauge3 .needle3 .needle-head
+	{
+position:relative;
+top:15%;
+left:22.5%;
+width:2.7%;
+height:70%;
+background-color:#000;
+transform:rotate(-45deg);
+	}
+.gauge3 .labels3
+	{
+position:absolute;
+width:100%;
+height:100%;
+	}
+.gauge3 .labels3 .value-label
+	{
+font-family: "SevenSegment";
+font-size: 28px;
+font-weight: bold;
+color: #ff3300;
+position:relative;
+top:75%;
+left:33%;
+width:10%;
+height:0;
+
+	}
+.gauge3 .labels3 .value-label::after
+	{
+text-align:justify;
+float:right;
+width:3em;
+	}
+
+.gauge3 .labels3 h4
+	{
+top:80%;
+position: relative;
+text-align:center;
+font-size: 20px;
+padding: 10px;
+
+	}
+#tempgauge {
+float:left;
+margin-left: 10px;
+margin-right: 10px;
+
+}
+#humgauge {
+float:left;
+margin-left: 10px;
+margin-right: 10px;
+
+}
+#pressgauge {
+float: left;
+margin-left: 10px;
+margin-right: 10px;
+
+}
+
+

@@ -24,8 +24,8 @@ import json
 import subprocess
 import MySQLdb
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import RPi.GPIO as GPIO
 import math
 import time
@@ -52,7 +52,7 @@ def emailWarning(msg, msgType):
     password = configurations["mailinfo"][0]["password"]
     subj = configurations["mailinfo"][0]["subjectwarning"]
         
-    if msgType is 'Info':
+    if msgType == 'Info':
         subj = configurations["mailinfo"][0]["subjectmessage"]
     
     # Message to be sended with subject field
@@ -96,7 +96,7 @@ def databaseHelper(sqlCommand,sqloperation):
                 #print sqlCommand
             except:
                 db.rollback()
-		warnmsg = 'Logger\nDatabase insert failed.\nCommand:%s\n' % (sqlCommand)
+                warnmsg = 'Logger\nDatabase insert failed.\nCommand:%s\n' % (sqlCommand)
                 emailWarning(warnmsg, "")
     elif sqloperation == "Cleanup":
         # SQL to purge all records older than configuration limit
