@@ -1,0 +1,50 @@
+Weatherstation setup
+
+This guide will help you get your Raspberry Pi ready to run the weatherstation code. Due to the high number of database queries, inserts and updates...a full Pi,
+ideally a Pi4, should be used. I have tried it on a Pi Zero and it just couldnt handle it.
+
+1. Image your Pi with the latest Raspian (Buster as of this writing)
+2. Get it connected to your network, either wired or wireless.
+3. Run sudo raspi-config and enabled SSH and I2C, make sure your keyboard layout is correct ...and reboot.
+4. Next, update the OS. Run sudo apt-get update, then sudo apt-get upgrade. Reboot.
+5. Now, install the basics for python. Run sudo apt-get -y install build-essential python-dev python-openssl python-setuptools python-pip python-pygame python-smbus  python-requests wget git (replace python* with python3)
+sudo pip install rpio
+6. Download the DHT modules: git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+7. cd in to the Adafruit_Python_DHT folder and run sudo python setup.py install
+8. Download the ADS modules: git clone https://github.com/adafruit/Adafruit_Python_ADS1x15.git
+9. cd in to the Adafruit_Python_ADS1x15 folder and run sudo python setup.py install
+10.Download the weatherstation and weathermonitor python code from the Ferretworx git repo: cd ~ && git clone https://github.com/gcoltharp/WeatherStation.git
+11.Rename the config files in both weathersensors and weathermonitor to config.json
+12.Update the config files to match your setup (GPIO pins, email address and server info, Wunderground.com site information)
+13.Install MySQL: sudo apt -y install mariadb-server python-mysqldb
+14.Login to mysql: sudo mysql -u root -p -h localhost (password is blank on initial install, so just hit enter)
+15.At the MariaDB prompt: CREATE DATABASE weatherstation;
+16.Select it with: USE weatherstation;
+17.Create the user: CREATE USER 'logger'@'localhost' IDENTIFIED BY 'password'; (use whatever user and pass you want but update the config.json to match)
+18.Next grant rights: GRANT ALL PRIVILEGES ON weatherstation.* TO 'logger'@'localhost';
+19.Then: FLUSH PRIVILEGES;
+20.Type quit and enter
+21.Run the following to login as your new user: sudo mysql -u logger -p (when prompted for the password, enter what you specified during creation and in config.json)
+22.To start building our structure: USE weatherstation; (the order of the columns in the following commands is important, do not alter)
+23.Rainfall data: create table rainfalldata ( record INT(11) NOT NULL AUTO_INCREMENT, dateandtime DATETIME, rainfall DOUBLE, PRIMARY KEY (record));
+24.Historic data: create table historicdata ( record INT(11) NOT NULL AUTO_INCREMENT, temperature DOUBLE, humidity DOUBLE, pressure DOUBLE, windspeed DOUBLE, winddirection VARCHAR(3), rainfall DOUBLE, dateandtime DATETIME, windavg DOUBLE, windgust DOUBLE, rainfall_5minute DOUBLE, PRIMARY KEY (record));
+25.Current data: create table currentdata ( dateandtime DATETIME, temperature DOUBLE, humidity DOUBLE, pressure DOUBLE, windspeed DOUBLE, winddirection VARCHAR(3), record INT(11) NOT NULL AUTO_INCREMENT, windavg DOUBLE, windgust DOUBLE, rainfall_day DOUBLE, rainfall_hour DOUBLE, rainfall_5minute DOUBLE, PRIMARY KEY (record));
+26. Windspeed data: create table windspeeddata ( record INT(11) NOT NULL AUTO_INCREMENT, dateandtime DATETIME, windspeedmph DOUBLE, PRIMARY KEY (record));
+Create the currentdata record: INSERT INTO currentdata (temperature,humidity) VALUES ("0.00","0.00");
+
+27. type quit and enter
+28. Move the scripts folder out to the root: sudo mv scripts /
+29. Make it executable with: sudo chmod +x /scripts/runsensors.sh
+30. Add the following lines to the root crontab to schedule sensor polling by running "sudo crontab -e" :
+
+* * * * * /scripts/runsensors.sh
+*/5 * * * * /usr/bin/python /home/pi/WeatherStation/weathersensors/weatherlogger.py
+* * * * * /usr/bin/python /home/pi/WeatherStation/weathersensors/windspeed.py
+* 1 * * * /usr/bin/python /home/pi/WeatherStation/weathersensors/rainfall.py
+
+31.Reboot... if all GPIO pins, etc are assigned correctly and connected correctly, you should be in business.
+32.To deploy the corresponding website, install the Apache and PHP binaries: sudo apt -y install apache2 php php-mysql
+33. Rename /var/www/html/index.html to index.old: sudo mv /var/www/html/index.html /var/www/html/index.old
+34. Copy website files: cp -r /home/pi/WeatherStation/Web\ Site/* /var/www/html
+35. Reboot and check http://<your pi's IP address>
+
